@@ -7,21 +7,19 @@ const changeState = (state, action) => {
       return { ...state, user: action.payload };
     case "LOG_OUT":
       return { ...state, user: null };
+    case "AUTH_READY":
+      return { ...state, authReady: true };
+    default:
+      return state;
   }
 };
 
 function GlobalContextProvider({ children }) {
   const [state, dispatch] = useReducer(changeState, {
-    user: true,
+    user: null,
+    authReady: false,
   });
 
-  dispatch({
-    type: "LOG_IN ",
-    payload: {
-      name: "Davronbek",
-      age: 23,
-    },
-  });
   return (
     <GlobalContext.Provider value={{ ...state, dispatch }}>
       {children}

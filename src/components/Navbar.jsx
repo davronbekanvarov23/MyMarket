@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 import NavLinks from "./NavLinks";
 import { FaSun, FaMoon } from "react-icons/fa";
 import { useContext, useEffect, useState } from "react";
-
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase/firebaseConfig";
 //context
 import { createContext } from "react";
 import { GlobalContext } from "../context/useGlobal";
@@ -19,7 +20,7 @@ let themeFromLocalStorage = () => {
 };
 
 function Navbar() {
-  const [user] = useContext(GlobalContext);
+  const { dispatch, user } = useContext(GlobalContext);
   const [currentTheme, setCurrenttheme] = useState(themeFromLocalStorage());
 
   const handleMode = (e) => {
@@ -36,7 +37,15 @@ function Navbar() {
     document.documentElement.setAttribute("data-theme", localtheme);
   }, [currentTheme]);
 
-  const handleLogout = () => {};
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        dispatch({ type: "LOG_OUT" });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div className="bg-base-300  mb-10">
@@ -70,6 +79,12 @@ function Navbar() {
             {/* moon icon */}
             <FaMoon className="swap-off  fill-current w-6 h-6" />
           </label>
+          {user && <p>{user.displayName}</p>}
+          <div className="avatar">
+            <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+              <img src={user.photoURL} />
+            </div>
+          </div>
           <button onClick={handleLogout} className="btn btn-primary">
             Logout
           </button>

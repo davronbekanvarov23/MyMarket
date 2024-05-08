@@ -9,7 +9,7 @@ import {
 import MainLayout from "./layouts/MainLayout";
 
 //context
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { GlobalContext } from "./context/useGlobal";
 
 //components
@@ -20,12 +20,13 @@ import Home from "./pages/Home";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
 import Product from "./pages/Product";
-import Signup from "./pages/SignUp";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase/firebaseConfig";
 
 function App() {
-  const user = useContext(GlobalContext);
+  const { user, dispatch, authReady } = useContext(GlobalContext);
   const routes = createBrowserRouter([
     {
       path: "/",
@@ -58,7 +59,14 @@ function App() {
     { path: "/signup", element: user ? <Navigate to="/" /> : <SignUp /> },
   ]);
 
-  return <RouterProvider router={routes} />;
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      dispatch({ type: "LOG_IN", payload: user });
+      dispatch({ type: "AUTH_READY" });
+    });
+  }, []);
+
+  return <>{authReady && <RouterProvider router={routes} />}</>;
 }
 
 export default App;
