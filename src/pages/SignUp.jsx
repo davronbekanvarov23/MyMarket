@@ -1,4 +1,4 @@
-import { Form, useActionData } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
 import { useSignUp } from "../hooks/useSignUp";
 import FormInput from "../components/FormInput";
@@ -21,18 +21,21 @@ function SignUp() {
   return (
     <div className="min h-screen grid place-content-center w-full">
       <div className="mb-3">
-        <Form method="post" className="mb-3">
+        <Form method="post" className="mb-3 w-96">
+          <h1 className="text-4xl font-bold text-center">Sign Up</h1>
           <FormInput label="Display Name" type="text" name="displayName" />
           <FormInput label="Email" type="email" name="email" />
           <FormInput label="Image" type="url" name="image" />
           <FormInput label="Password" type="password" name="password" />
-          <button
-            onClick={registerWithEmailAndPassword}
-            type="submit"
-            className="btn btn-secondary w-full"
-          >
-            Submit
-          </button>
+          <div className="mt-5">
+            <button
+              onClick={registerWithEmailAndPassword}
+              type="submit"
+              className="btn btn-secondary w-full"
+            >
+              Submit
+            </button>
+          </div>
         </Form>
       </div>
       <div>
@@ -44,6 +47,12 @@ function SignUp() {
           <FaGoogle className="h-5 w-5" />
           Signup
         </button>
+        <p className="mt-4 text-center">
+          Already registered?{" "}
+          <Link to="/login" className="link link-primary">
+            login
+          </Link>
+        </p>
       </div>
     </div>
   );
