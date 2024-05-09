@@ -21,7 +21,7 @@ function SignUp() {
   return (
     <div className="min h-screen grid place-content-center w-full">
       <div className="mb-3">
-        <Form mathod="post" className="mb-3">
+        <Form method="post" className="mb-3">
           <FormInput label="Display Name" type="text" name="displayName" />
           <FormInput label="Email" type="email" name="email" />
           <FormInput label="Image" type="url" name="image" />

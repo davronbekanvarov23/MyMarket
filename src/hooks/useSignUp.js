@@ -16,7 +16,9 @@ function useSignUp() {
 
   useEffect(() => {
     if (actionData) {
-      registerWithEmailAndPassword;
+      if (actionData) {
+        registerWithEmailAndPassword(actionData);
+      }
     }
   }, []);
 
@@ -41,25 +43,19 @@ function useSignUp() {
       });
   };
 
-  const registerWithEmailAndPassword = () => {
-    if (actionData) {
-      createUserWithEmailAndPassword(
-        auth,
-        actionData.email,
-        actionData.password
-      )
-        .then((userCredential) => {
-          const user = userCredential.user;
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          // ..
-        });
-    }
+  const registerWithEmailAndPassword = (actionData) => {
+    createUserWithEmailAndPassword(auth, actionData.email, actionData.password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });
   };
 
-  return { signUpWithGoogle, registerWithEmailAndPassword };
+  return { signUpWithGoogle };
 }
 
 export { useSignUp };
