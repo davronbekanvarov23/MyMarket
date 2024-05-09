@@ -3,6 +3,14 @@ import { FaGoogle } from "react-icons/fa";
 import FormInput from "../components/FormInput";
 import { useSignUp } from "../hooks/useSignUp";
 
+export const action = async ({ request }) => {
+  let formData = await request.formData();
+  let email = formData.get("email");
+  let password = formData.get("password");
+
+  return { email, password };
+};
+
 function Login() {
   const { signUpWithGoogle } = useSignUp();
   return (
