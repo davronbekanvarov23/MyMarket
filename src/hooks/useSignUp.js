@@ -21,7 +21,7 @@ function useSignUp() {
         registerWithEmailAndPassword(actionData);
       }
     }
-  }, []);
+  }, [actionData]);
 
   const { dispatch } = useContext(GlobalContext);
 
@@ -52,6 +52,7 @@ function useSignUp() {
           displayName: actionData.name,
           photoURL: actionData.image,
         });
+        dispatch({ type: "LOG_IN", payload: user });
       })
       .catch((error) => {
         const errorCode = error.code;
