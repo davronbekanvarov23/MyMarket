@@ -1,7 +1,9 @@
-import { Link, Form } from "react-router-dom";
+import { Link, Form, useActionData } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
 import FormInput from "../components/FormInput";
 import { useSignUp } from "../hooks/useSignUp";
+import { useLogin } from "../hooks/useLogin";
+import { useEffect } from "react";
 
 export const action = async ({ request }) => {
   let formData = await request.formData();
@@ -13,6 +15,17 @@ export const action = async ({ request }) => {
 
 function Login() {
   const { signUpWithGoogle } = useSignUp();
+  const { loginWithEmailAndPassword } = useLogin();
+
+  const actionData = useActionData();
+
+  useEffect(() => {
+    if (actionData) {
+      if (actionData) {
+        loginWithEmailAndPassword(actionData);
+      }
+    }
+  }, [actionData]);
   return (
     <div className="min h-screen grid place-content-center w-full">
       <div className="mb-3">

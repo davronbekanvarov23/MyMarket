@@ -3,12 +3,12 @@ import { auth } from "../firebase/firebaseConfig";
 import { useActionData } from "react-router-dom";
 import toast from "react-hot-toast";
 import { GlobalContext } from "../context/useGlobal";
-import { useContext,useEffect } from "react";
+import { useContext, useEffect } from "react";
 function useLogin() {
-    const actionData = useActionData();
-    const { dispatch } = useContext(GlobalContext);
+  const actionData = useActionData();
+  const { dispatch } = useContext(GlobalContext);
 
-    useEffect(() => {
+  useEffect(() => {
     if (actionData) {
       if (actionData) {
         loginWithEmailAndPassword(actionData);
@@ -17,7 +17,6 @@ function useLogin() {
   }, [actionData]);
 
   const loginWithEmailAndPassword = (actionData) => {
-
     signInWithEmailAndPassword(auth, actionData.email, actionData.password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -31,7 +30,7 @@ function useLogin() {
       });
   };
 
-  return;
+  return {loginWithEmailAndPassword};
 }
 
 export { useLogin };
