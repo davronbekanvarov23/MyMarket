@@ -4,12 +4,13 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 
 import { auth } from "../firebase/firebaseConfig";
 import { useActionData } from "react-router-dom";
 
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 function useSignUp() {
   const actionData = useActionData();
@@ -45,8 +46,12 @@ function useSignUp() {
 
   const registerWithEmailAndPassword = (actionData) => {
     createUserWithEmailAndPassword(auth, actionData.email, actionData.password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         const user = userCredential.user;
+        await updateProfile(auth.currentUser, {
+          displayName: actionData.name,
+          photoURL: actionData.image,
+        });
       })
       .catch((error) => {
         const errorCode = error.code;
