@@ -1,11 +1,25 @@
 import { GlobalContext } from "../context/useGlobal";
-import { useContext } from "react";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { useContext, useEffect } from "react";
+import {
+  signInWithPopup,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
+
 import { auth } from "../firebase/firebaseConfig";
+import { useActionData } from "react-router-dom";
 
 import toast, { Toaster } from "react-hot-toast";
 
 function useSignUp() {
+  const actionData = useActionData();
+
+  useEffect(() => {
+    if (actionData) {
+      registerWithEmailAndPassword;
+    }
+  }, []);
+
   const { dispatch } = useContext(GlobalContext);
 
   const signUpWithGoogle = () => {
@@ -26,7 +40,26 @@ function useSignUp() {
         toast.error(errorMessage);
       });
   };
-  return { signUpWithGoogle };
+
+  const registerWithEmailAndPassword = () => {
+    if (actionData) {
+      createUserWithEmailAndPassword(
+        auth,
+        actionData.email,
+        actionData.password
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // ..
+        });
+    }
+  };
+
+  return { signUpWithGoogle, registerWithEmailAndPassword };
 }
 
 export { useSignUp };

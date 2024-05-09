@@ -25,6 +25,9 @@ import SignUp from "./pages/SignUp";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebaseConfig";
 
+//actions
+import { action as SignupAction } from "./pages/SignUp";
+
 function App() {
   const { user, dispatch, authReady } = useContext(GlobalContext);
   const routes = createBrowserRouter([
@@ -56,7 +59,11 @@ function App() {
     },
     { path: "/login", element: user ? <Navigate to="/" /> : <Login /> },
 
-    { path: "/signup", element: user ? <Navigate to="/" /> : <SignUp /> },
+    {
+      path: "/signup",
+      element: user ? <Navigate to="/" /> : <SignUp />,
+      action: SignupAction,
+    },
   ]);
 
   useEffect(() => {
