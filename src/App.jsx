@@ -29,6 +29,9 @@ import { auth } from "./firebase/firebaseConfig";
 import { action as SignupAction } from "./pages/SignUp";
 import { action as LoginAction } from "./pages/Login";
 
+//firebasa
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "./firebase/firebaseConfig";
 function App() {
   const { user, dispatch, authReady } = useContext(GlobalContext);
   const routes = createBrowserRouter([
@@ -76,6 +79,18 @@ function App() {
       dispatch({ type: "LOG_IN", payload: user });
       dispatch({ type: "AUTH_READY" });
     });
+
+    //
+    async function getData() {
+      const allData = [];
+      const querySnapshot = await getDocs(collection(db, "products"));
+      querySnapshot.docs.forEach((item) => {
+        allData.push({ id: item.id, ...item.data() });
+      });
+      dispatch({type:"INITIAL_DATA",payload:allData})
+    }
+
+    getData();
   }, []);
 
   return <>{authReady && <RouterProvider router={routes} />}</>;

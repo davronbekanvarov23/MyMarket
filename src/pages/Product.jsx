@@ -14,9 +14,11 @@ function Product() {
       {product && (
         <div className="align-content">
           <h1 className="text-4xl font-bold mb-10  text-red-500 text-center">
+
             <span className="text-gray-400">Product - </span>
             {product.title}
           </h1>
+            <button className="btn btn-primary">Add to Card</button>
           <div className="carousel carousel-center  p-4 space-x-4 bg-neutral rounded-box">
             {product.images.map((image) => {
               return (
@@ -31,10 +33,8 @@ function Product() {
           </div>
           <div className="flex flex-col gap-5 text-2xl font-medium  mt-10  pl-8 mb-10 text-green-600 ">
             <p className="text-2xl flex items-center gap-1">
-              <span className="text-gray-400  font-bold ">
-                Price:  
-              </span>
-               $ {product.price}
+              <span className="text-gray-400  font-bold ">Price:</span>${" "}
+              {product.price}
             </p>
             <p className="text-2xl">
               <span className="text-gray-400  font-bold">Brand:</span>

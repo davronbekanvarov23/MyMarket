@@ -3,6 +3,7 @@ import { FaGoogle } from "react-icons/fa";
 import { useSignUp } from "../hooks/useSignUp";
 import FormInput from "../components/FormInput";
 import { useEffect } from "react";
+import SubmitBtn from "../components/SubmitBtn";
 //context
 
 export const action = async ({ request }) => {
@@ -37,13 +38,7 @@ function SignUp() {
           <FormInput label="Image" type="url" name="image" />
           <FormInput label="Password" type="password" name="password" />
           <div className="mt-5">
-            <button
-              onClick={registerWithEmailAndPassword}
-              type="submit"
-              className="btn btn-secondary w-full"
-            >
-              Submit
-            </button>
+            <SubmitBtn onClick={registerWithEmailAndPassword} text="Submit" />
           </div>
         </Form>
       </div>
