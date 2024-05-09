@@ -15,6 +15,10 @@ const links = [
     id: 3,
     text: "Contact",
     path: "/contact",
+  }, {
+    id: 4,
+    text: "Cart",
+    path: "/cart",
   },
 ];
 

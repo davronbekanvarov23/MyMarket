@@ -24,7 +24,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebaseConfig";
-
+import Cart from "./pages/Cart";
 //actions
 import { action as SignupAction } from "./pages/SignUp";
 import { action as LoginAction } from "./pages/Login";
@@ -59,6 +59,10 @@ function App() {
           path: "/product/:id",
           element: <Product />,
         },
+        {
+          path: "/cart",
+          element: <Cart />,
+        },
       ],
     },
     {
@@ -85,9 +89,9 @@ function App() {
       const allData = [];
       const querySnapshot = await getDocs(collection(db, "products"));
       querySnapshot.docs.forEach((item) => {
-        allData.push({ id: item.id, ...item.data() });
+        allData.push({ idf: item.id, ...item.data() });
       });
-      dispatch({type:"INITIAL_DATA",payload:allData})
+      dispatch({ type: "INITIAL_DATA", payload: allData });
     }
 
     getData();

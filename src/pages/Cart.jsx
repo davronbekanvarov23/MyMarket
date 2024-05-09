@@ -1,9 +1,9 @@
-import React from 'react'
-
+import { useContext } from "react";
+import { GlobalContext } from "../context/useGlobal";
 function Cart() {
-  return (
-    <div>Cart</div>
-  )
+  const { data } = useContext(GlobalContext);
+
+  return <div>Cart</div>;
 }
 
-export default Cart
+export default Cart;

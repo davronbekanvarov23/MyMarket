@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
-
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../firebase/firebaseConfig";
 function Product() {
   const { id } = useParams();
   const {
@@ -8,17 +9,21 @@ function Product() {
     isPending,
     error,
   } = useFetch("https://dummyjson.com/products/" + id);
+  const addDoctoDb = async () => {
+    await addDoc(collection(db, "products"),product);
+  };
   return (
     <>
       {isPending && <h3 className="text-xl text-center ">Loading...</h3>}
       {product && (
         <div className="align-content">
           <h1 className="text-4xl font-bold mb-10  text-red-500 text-center">
-
             <span className="text-gray-400">Product - </span>
             {product.title}
           </h1>
-            <button className="btn btn-primary">Add to Card</button>
+          <button onClick={addDoctoDb} className="btn btn-primary">
+            Add to Card
+          </button>
           <div className="carousel carousel-center  p-4 space-x-4 bg-neutral rounded-box">
             {product.images.map((image) => {
               return (
