@@ -24,7 +24,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebaseConfig";
-import Cart from "./pages/Cart";
+//
 //actions
 import { action as SignupAction } from "./pages/SignUp";
 import { action as LoginAction } from "./pages/Login";
@@ -58,10 +58,6 @@ function App() {
         {
           path: "/product/:id",
           element: <Product />,
-        },
-        {
-          path: "/cart",
-          element: <Cart />,
         },
       ],
     },
